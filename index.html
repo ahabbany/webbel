@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#4F46E5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Akademi Belajar - Belajar UAS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast">
+    <div class="toast-inner">
+      <span class="toast-icon" id="toast-icon">🔥</span>
+      <span class="toast-text" id="toast-text">Halo!</span>
+    </div>
+  </div>
+
+  <!-- ===== CONFETTI ===== -->
+  <div id="confetti-container"></div>
+
+  <!-- ===== APP ===== -->
+  <div id="app">
+
+    <!-- ===== STATUS BAR ===== -->
+    <div class="status-bar">
+      <span class="status-time" id="status-time">12:00</span>
+      <span class="status-icons">📶 📶 🔋</span>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="header-back" id="header-back" onclick="goBack()">←</button>
+        <span class="header-title" id="header-title" onclick="goToDashboard()" style="cursor:pointer;">Akademi Belajar</span>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" onclick="openTimer()" title="Timer">⏱</button>
+        <button class="header-btn" onclick="openSearch()" title="Cari">🔍</button>
+        <button class="header-btn" id="header-darkmode" onclick="toggleDarkMode()" title="Mode Gelap">🌙</button>
+      </div>
+    </header>
+
+    <!-- ===== XP BAR ===== -->
+    <div id="xp-bar">
+      <div class="level-badge">
+        <span class="level-icon">⭐</span>
+        <span>Lv.<span id="level-num">1</span></span>
+      </div>
+      <div class="xp-track">
+        <div class="xp-fill" id="xp-fill"></div>
+      </div>
+      <span class="xp-label" id="xp-label">0 XP</span>
+    </div>
+
+    <!-- ===== FLOATING BACKGROUND TEXT ===== -->
+    <div class="bg-float">
+      <span>Belajar</span>
+      <span>Semangat</span>
+      <span>IMK</span>
+      <span>Sukses</span>
+      <span>UAS</span>
+      <span>Bisa!</span>
+      <span>Hebat</span>
+      <span>A</span>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content" id="main-content">
+
+      <!-- LANDING VIEW -->
+      <div id="view-landing" class="view">
+        <div class="hero-card">
+          <div class="hero-greeting" id="hero-greeting">🥰 Semangat!</div>
+          <div class="hero-title">Selamat Datang di Akademi Belajar</div>
+          <div class="hero-subtitle">Belajar cerdas, raih nilai terbaikmu!</div>
+          <div class="hero-progress-wrap">
+            <div class="hero-progress-label">
+              <span>Progress Total</span>
+              <span id="hero-progress-pct">0%</span>
+            </div>
+            <div class="hero-progress-bar">
+              <div class="hero-progress-fill" id="hero-progress-fill"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px;">
+              <span><span id="hero-progress-done">0</span>/<span id="hero-progress-total">0</span> materi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-stats">
+          <div class="stat-card">
+            <span class="stat-icon">📚</span>
+            <span class="stat-value" id="stat-materi">0</span>
+            <span class="stat-label">Selesai</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">⭐</span>
+            <span class="stat-value" id="stat-xp">0</span>
+            <span class="stat-label">XP</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🏆</span>
+            <span class="stat-value" id="stat-level">1</span>
+            <span class="stat-label">Level</span>
+          </div>
+        </div>
+
+        <div class="section-title">🏅 Badge</div>
+        <div class="badges-row" id="badges-row"></div>
+
+        <div class="section-title mt-16" style="margin-top:18px;">⚡ Mulai Belajar</div>
+        <div class="quick-actions">
+          <button class="qaction" onclick="goToDashboard()">
+            <span class="qaction-icon">📚</span>
+            <span class="qaction-label">Materi</span>
+          </button>
+          <button class="qaction" onclick="goToDashboard()">
+            <span class="qaction-icon">🧠</span>
+            <span class="qaction-label">Flash Card</span>
+          </button>
+          <button class="qaction" onclick="openQuick()">
+            <span class="qaction-icon">⚡</span>
+            <span class="qaction-label">5 Menit</span>
+          </button>
+          <button class="qaction" onclick="openMemorization()">
+            <span class="qaction-icon">📇</span>
+            <span class="qaction-label">Hafalan</span>
+          </button>
+        </div>
+
+        <div style="margin:20px 0;">
+          <button class="btn btn-primary btn-block btn-lg" onclick="goToDashboard()" style="border-radius:20px;">
+            📖 Mulai Belajar
+          </button>
+        </div>
+      </div>
+
+      <!-- DASHBOARD VIEW -->
+      <div id="view-dashboard" class="view">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">📚 Pilih Mata Kuliah</h1>
+          <p class="dashboard-subtitle">Pilih mata kuliah yang ingin dipelajari.</p>
+        </div>
+        <div class="course-cards" id="course-cards"></div>
+      </div>
+
+      <!-- MATERI VIEW -->
+      <div id="view-materi" class="view">
+        <div class="section-title">📚 Materi Belajar</div>
+        <div class="section-subtitle" id="materi-subtitle">Pilih materi yang ingin dipelajari</div>
+        <div class="materi-grid" id="materi-grid"></div>
+      </div>
+
+      <!-- DETAIL VIEW -->
+      <div id="view-detail" class="view">
+        <div id="detail-container"></div>
+      </div>
+
+      <!-- FLASHCARD VIEW -->
+      <div id="view-flashcard" class="view">
+        <div class="section-title">🧠 Flash Card</div>
+        <div class="section-subtitle">Tap kartu untuk lihat jawaban</div>
+        <div class="fc-subject-tabs" id="fc-tabs"></div>
+        <div class="fc-card" id="fc-box">
+          <div class="fc-inner">
+            <div class="fc-front">
+              <span class="fc-front-icon">❓</span>
+              <div class="fc-front-q">Pilih materi</div>
+              <div class="fc-front-hint">👆 Tap untuk jawaban</div>
+            </div>
+            <div class="fc-back"><div class="fc-back-a">Pilih materi dulu</div></div>
+          </div>
+        </div>
+        <div class="fc-counter" id="fc-counter">0/0</div>
+        <div class="fc-nav">
+          <button class="fc-nav-btn" id="fc-prev" onclick="fcPrev()">←</button>
+          <button class="fc-nav-btn" onclick="flipFc()">👆</button>
+          <button class="fc-nav-btn" id="fc-next" onclick="fcNext()">→</button>
+        </div>
+        <div style="text-align:center;">
+          <button class="btn btn-sm btn-ghost" onclick="shuffleFc()">🔀 Acak</button>
+        </div>
+      </div>
+
+      <!-- QUIZ VIEW -->
+      <div id="view-quiz" class="view">
+        <div class="section-title">📝 Mini Quiz</div>
+        <div class="quiz-tabs" id="quiz-tabs"></div>
+        <div id="quiz-inner"></div>
+      </div>
+
+      <!-- SETTINGS VIEW -->
+      <div id="view-settings" class="view">
+        <div class="section-title">⚙ Pengaturan</div>
+        <div class="section-subtitle">Sesuaikan pengalaman belajarmu</div>
+
+        <div class="setting-group">
+          <div class="setting-group-title">Tampilan</div>
+          <div class="setting-item">
+            <div class="setting-item-left">
+              <span class="setting-item-icon">🌙</span>
+              <div>
+                <div class="setting-item-label">Mode Gelap</div>
+                <div class="setting-item-desc">Nyaman di malam hari</div>
+              </div>
+            </div>
+            <div class="toggle" id="darkmode-toggle" onclick="toggleDarkMode()">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <div class="setting-group-title">Statistik</div>
+          <div class="setting-item">
+            <div class="setting-item-left">
+              <span class="setting-item-icon">⭐</span>
+              <div>
+                <div class="setting-item-label">Total XP</div>
+                <div class="setting-item-desc"><span id="settings-xp">0</span> XP — Level <span id="settings-level">1</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-item-left">
+              <span class="setting-item-icon">🏅</span>
+              <div>
+                <div class="setting-item-label">Badge</div>
+                <div class="setting-item-desc"><span id="settings-badges">0/5</span> terkumpul</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <div class="setting-group-title">Lainnya</div>
+          <div class="setting-item" onclick="resetProgress()" style="cursor:pointer;">
+            <div class="setting-item-left">
+              <span class="setting-item-icon">🔄</span>
+              <div>
+                <div class="setting-item-label">Reset Progress</div>
+                <div class="setting-item-desc">Hapus semua data belajar</div>
+              </div>
+            </div>
+          </div>
+          <div class="setting-item" style="border:none;">
+            <div class="setting-item-left">
+              <span class="setting-item-icon">🎓</span>
+              <div>
+                <div class="setting-item-label">Akademi Belajar v3.0</div>
+                <div class="setting-item-desc">Belajar UAS — Premium</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK LEARNING -->
+      <div id="view-quick" class="view">
+        <div class="section-title">⚡ Belajar 5 Menit</div>
+        <div class="section-subtitle">Poin penting sebelum UAS</div>
+        <div id="quick-container" class="stagger"></div>
+      </div>
+
+      <!-- MEMORIZATION -->
+      <div id="view-memorization" class="view">
+        <div class="section-title">📇 Mode Hafalan</div>
+        <div class="section-subtitle">Semua kartu diacak</div>
+        <div id="memo-container"></div>
+      </div>
+
+    </main>
+
+    <!-- ===== BOTTOM NAV ===== -->
+    <nav id="bottom-nav">
+      <button class="nav-item active" data-view="dashboard" onclick="navigateTo('dashboard')">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" data-view="materi" onclick="navigateTo('materi')">
+        <span class="nav-icon">📚</span>
+        <span class="nav-label">Materi</span>
+      </button>
+      <button class="nav-item" data-view="flashcard" onclick="navigateTo('flashcard')">
+        <span class="nav-icon">🧠</span>
+        <span class="nav-label">Flash</span>
+      </button>
+      <button class="nav-item" data-view="quiz" onclick="navigateTo('quiz')">
+        <span class="nav-icon">📝</span>
+        <span class="nav-label">Quiz</span>
+      </button>
+      <button class="nav-item" data-view="settings" onclick="navigateTo('settings')">
+        <span class="nav-icon">⚙</span>
+        <span class="nav-label">Setting</span>
+      </button>
+    </nav>
+
+    <!-- ===== MASCOT ===== -->
+    <div id="mascot" onclick="tapMascot()">
+      <div class="mascot-body">🥰</div>
+      <div class="mascot-speech" id="mascot-speech" style="display:none;">Semangat! 💪</div>
+    </div>
+
+    <!-- ===== FLOATING BUTTON ===== -->
+    <button id="floating-btn" onclick="openSummary()">📌</button>
+
+  </div>
+
+  <!-- ===== TIMER MODAL ===== -->
+  <div class="modal-overlay" id="timer-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">⏱ Timer</div>
+        <button class="modal-close" onclick="closeTimer()">✕</button>
+      </div>
+      <div class="timer-circle">
+        <div class="timer-num" id="timer-num">25:00</div>
+        <div class="timer-label" id="timer-label">⏱ Siap!</div>
+      </div>
+      <div class="timer-presets">
+        <button class="timer-pre" data-min="25" onclick="setTimerPreset(25)">25m</button>
+        <button class="timer-pre" data-min="15" onclick="setTimerPreset(15)">15m</button>
+        <button class="timer-pre" data-min="5" onclick="setTimerPreset(5)">5m</button>
+      </div>
+      <div class="timer-ctrls">
+        <button class="timer-btn" onclick="startTimer()">▶</button>
+        <button class="timer-btn" onclick="pauseTimer()">⏸</button>
+        <button class="timer-btn" onclick="resetTimer()">↺</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SUMMARY MODAL ===== -->
+  <div class="modal-overlay" id="summary-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">📌 Ringkasan</div>
+        <button class="modal-close" onclick="closeSummary()">✕</button>
+      </div>
+      <div id="summary-content"></div>
+    </div>
+  </div>
+
+  <!-- ===== ACHIEVEMENT ===== -->
+  <div class="achievement-overlay" id="achievement-overlay">
+    <div class="achievement-card">
+      <span class="achievement-icon-big">🎉</span>
+      <div class="achievement-title">Selamat!</div>
+      <div class="achievement-text" id="achievement-text">Kamu menyelesaikan semua materi! Luar biasa! 💪🔥</div>
+      <button class="btn btn-primary" onclick="closeAchievement()" style="border-radius:16px;">🎉 Lanjut</button>
+    </div>
+  </div>
+
+  <!-- ===== SEARCH ===== -->
+  <div id="search-overlay">
+    <div class="search-head">
+      <input class="search-input" id="search-input" type="text" placeholder="Cari materi..." autocomplete="off">
+      <button class="modal-close" onclick="closeSearch()">✕</button>
+    </div>
+    <div class="search-body" id="search-results">
+      <div class="search-empty">
+        <span style="font-size:48px;display:block;margin-bottom:12px;">🔍</span>
+        <div style="font-weight:600;margin-bottom:4px;">Cari materi</div>
+        <div style="font-size:13px;color:var(--text-muted)">Ketik kata kunci</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="courses/imk.js"></script>
+  <script src="courses/ai.js"></script>
+  <script src="courses/toefl.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
